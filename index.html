@@ -266,7 +266,7 @@
                     produtos = data.map(row => ({
                         codigo: row['Código'],
                         tipo: row['Tipo'],
-                        nome: row['Nome do Produto'],
+                        nome: row['Produtos'], // <--- CORREÇÃO AQUI (Estava 'Nome do Produto')
                         unidade: row['Unidade'],
                         preco: String(row['Preço']).replace(',', '.'), // Garante formato numérico
                         descricao: row['Descrição'],
@@ -281,16 +281,6 @@
                     console.error("Erro na requisição:", error);
                     document.getElementById('loading').innerText = "Erro ao carregar os produtos. Verifique o link do Web App e as permissões de compartilhamento.";
                 });
-        }
-
-        // Dados de Teste para você ver funcionando antes de plugar a planilha
-        function carregarDadosDeTeste() {
-            produtos = [
-                { codigo: '001', tipo: 'Fruta', nome: 'Morango Bandeja', unidade: 'CX (4 un)', preco: '30.00', descricao: 'Caixa com 4 bandejas. Sai a R$ 7,50 a unidade.', imagem: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?w=500', promocao: 'Sim', disponivel: 'Disponível' },
-                { codigo: '002', tipo: 'Congelados', nome: 'Morango Congelado (1kg)', unidade: 'UN', preco: '25.00', descricao: 'Morangos selecionados e congelados inteiros.', imagem: 'https://images.unsplash.com/photo-1601004890684-d8cbf643f5f2?w=500', promocao: 'Não', disponivel: 'Disponível' },
-                { codigo: '003', tipo: 'Congelados', nome: 'Polpa de Morango', unidade: 'UN', preco: '12.00', descricao: 'Polpa 100% natural, sem açúcar. Pacote 400g.', imagem: 'https://images.unsplash.com/photo-1572450334865-c3cd1821db11?w=500', promocao: 'Não', disponivel: 'Em falta' }
-            ];
-            renderizarProdutos(produtos);
         }
 
         // Envio para o WhatsApp
