@@ -14,8 +14,25 @@
         * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { margin: 0; padding: 0; background-color: var(--bg); color: var(--text); padding-bottom: 80px; }
         
-        header { background-color: var(--primary); color: white; padding: 20px; text-align: center; }
+        header { 
+            background-color: var(--primary); 
+            color: white; 
+            padding: 20px; 
+            text-align: center; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
         header h1 { margin: 0; font-size: 24px; }
+        
+        /* Estilo da Logo */
+        .loja-logo {
+            max-width: 150px; /* Controla o tamanho máximo da logo */
+            height: auto;
+            margin-bottom: 10px;
+            border-radius: 8px; /* Deixa as bordas levemente arredondadas */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
 
         .container { max-width: 800px; margin: 0 auto; padding: 15px; }
 
@@ -64,7 +81,8 @@
 <body>
 
     <header>
-        <h1>🍓 Juh Morangos e Congelados</h1>
+        <img src="https://via.placeholder.com/150x150?text=Sua+Logo+Aqui" alt="Logo Juh Morangos" class="loja-logo">
+        <h1>Juh Morangos e Congelados</h1>
     </header>
 
     <div class="container">
@@ -139,7 +157,7 @@
         const WHATSAPP_NUMERO = "5512997093704"; // Número da loja
         
         // COLOQUE AQUI O LINK DO SEU WEB APP DO APPS SCRIPT:
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwDvjrM52ABdbEugmQYMWCOCzH9KIQaT6Oro5q932cp1rLYaBaEoFmmkEItBd-uQWe1lA/exec"; 
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbySMCXvSkimbv0w-lIjrTP0bg_0VEpIZ_dlZs5yezfTmB6aTuligyucDSYNKqcWwDfKeA/exec"; 
         
         let produtos = [];
         let carrinho = {};
@@ -256,24 +274,22 @@
             fetch(WEB_APP_URL)
                 .then(response => response.json())
                 .then(data => {
-                    // Se o Apps Script retornar um erro
                     if(data.erro) {
                         document.getElementById('loading').innerText = "Erro: " + data.erro;
                         return;
                     }
 
-                    // Mapeia as colunas recebidas do JSON
                     produtos = data.map(row => ({
                         codigo: row['Código'],
                         tipo: row['Tipo'],
-                        nome: row['Produtos'], // <--- CORREÇÃO AQUI (Estava 'Nome do Produto')
+                        nome: row['Produtos'], 
                         unidade: row['Unidade'],
-                        preco: String(row['Preço']).replace(',', '.'), // Garante formato numérico
+                        preco: String(row['Preço']).replace(',', '.'), 
                         descricao: row['Descrição'],
                         imagem: row['Imagem (URL)'],
                         promocao: String(row['Promoção']),
                         disponivel: String(row['Status'])
-                    })).filter(p => p.nome); // Filtra linhas vazias
+                    })).filter(p => p.nome); 
                     
                     renderizarProdutos(produtos);
                 })
@@ -295,7 +311,6 @@
                 return;
             }
 
-            // Formatar data de YYYY-MM-DD para DD/MM/YYYY
             const dataFormatada = dataPed.split('-').reverse().join('/');
 
             let pedidoTexto = `*NOVO PEDIDO - JUH MORANGOS E CONGELADOS* 🍓\n\n`;
