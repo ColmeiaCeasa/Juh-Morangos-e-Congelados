@@ -351,8 +351,14 @@
                 
                 produtosPorCategoria[categoria].forEach(prod => {
                     const qtdAtual = carrinho[prod.codigo] || 0;
-                    const disponivelStr = prod.disponivel ? prod.disponivel.toLowerCase() : "";
-                    const esgotado = disponivelStr === 'não' || disponivelStr === 'nao' || disponivelStr.includes('falta');
+                    
+                    // ==========================================
+                    // CORREÇÃO FEITA AQUI: Verificando "Não" e "Nao"
+                    // ==========================================
+                    const disponivelStr = prod.disponivel ? String(prod.disponivel).trim().toLowerCase() : "";
+                    const esgotado = disponivelStr === 'não' || disponivelStr === 'nao';
+                    // ==========================================
+
                     const emPromocao = prod.promocao && prod.promocao.toLowerCase() === 'sim';
                     
                     htmlFinal += `
